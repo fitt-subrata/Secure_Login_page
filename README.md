@@ -44,6 +44,4 @@ Dashboard access protected for authenticated users only
 Logout feature clears the session
 
 
-...
-
 
