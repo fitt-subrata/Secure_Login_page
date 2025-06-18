@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 40px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #222;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .user-info {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+        }
+
+        .user-info strong {
+            display: inline-block;
+            width: 140px;
+            color: #555;
+        }
+
+        .btn-logout {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #dc3545;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            text-align: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-logout:hover {
+            background-color: #b02a37;
+        }
+
+        .flash {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1rem;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .flash.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .flash.danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .flash.warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <h1>Welcome to Your Dashboard</h1>
+
+        <div class="user-info">
+            <p><strong>Name:</strong> {{ session['user_name'] }}</p>
+            <p><strong>Email:</strong> {{ session.get('user_email', 'Not available') }}</p>
+            <p><strong>Password Hash:</strong> <code>$2b$12$eB7x9Iq3uAG7XExEMWx1HuPpP5f9A7Q9rJ8MnbOuzh6oQ0n7N2Ybi</code></p>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="{{ url_for('logout') }}" class="btn-logout">Logout</a>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, msg in messages %}
+            <div class="flash {{ category }}">{{ msg }}</div>
+          {% endfor %}
+        {% endwith %}
+    </div>
+
+</body>
+</html>
+
+

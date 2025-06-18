@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .form-container {
+            background: #fff;
+            padding: 40px;
+            width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+        .btn {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: hsl(350, 33%, 96%);
+        }
+        .errors {
+            color: #cc0000;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+        .password-hint {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 6px;
+        }
+        .flash {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        p {
+            text-align: center;
+            margin-top: 15px;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Create Your Account</h2>
+        <form method="POST" novalidate id="register-form">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.name.label }}
+                {{ form.name(class="form-input") }}
+                {% if form.name.errors %}
+                    <div class="errors">
+                        {% for error in form.name.errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.email.label }}
+                {{ form.email(class="form-input") }}
+                {% if form.email.errors %}
+                    <div class="errors">
+                        {% for error in form.email.errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label }}
+                {{ form.password(class="form-input", id="password") }}
+                <div class="password-hint">Use 8+ characters with uppercase, lowercase, number, and special symbol.</div>
+                {% if form.password.errors %}
+                    <div class="errors">
+                        {% for error in form.password.errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            {{ form.submit(class="btn") }}
+        </form>
+
+        <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, msg in messages %}
+            <div class="flash {{ category }}">{{ msg }}</div>
+          {% endfor %}
+        {% endwith %}
+    </div>
+
+    <script>
+        const form = document.getElementById('register-form');
+        const passwordInput = document.getElementById('password');
+
+        function showPopup(message) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Password',
+                text: message,
+                confirmButtonColor: '#d33'
+            });
+        }
+
+        form.addEventListener('submit', function (e) {
+            const password = passwordInput.value;
+
+            if (password.length < 8) {
+                e.preventDefault();
+                showPopup("Password must be at least 8 characters.");
+                return;
+            }
+            if (!/[A-Z]/.test(password)) {
+                e.preventDefault();
+                showPopup("Include at least one uppercase letter.");
+                return;
+            }
+            if (!/[a-z]/.test(password)) {
+                e.preventDefault();
+                showPopup("Include at least one lowercase letter.");
+                return;
+            }
+            if (!/\d/.test(password)) {
+                e.preventDefault();
+                showPopup("Include at least one number.");
+                return;
+            }
+            if (!/[!@#$%^&*(),.?\":{}|<>]/.test(password)) {
+                e.preventDefault();
+                showPopup("Include at least one special character.");
+                return;
+            }
+        });
+    </script>
+</body>
+</html>
