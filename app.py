@@ -21,7 +21,7 @@ app.config['MYSQL_DB'] = os.getenv('MYSQL_DB', 'mydatabase')
 
 mysql = MySQL(app)
 
-# ---------- Forms ----------
+# Forms 
 class RegisterForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired(), Length(min=2)])
     email = StringField("Email", validators=[DataRequired(), Email()])
@@ -41,7 +41,7 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Login")
 
-# ---------- Routes ----------
+# Routes
 @app.route('/')
 def home():
     return redirect(url_for('login'))
