@@ -1,0 +1,119 @@
+/* Body*/
+body {
+    margin: 0;
+    padding: 0;
+    background: #f4f7fa;  /* light neutral background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* container */
+.form-container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    width: 350px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Header */
+h2 {
+    margin-bottom: 20px;
+    color: #222;
+    font-weight: 600;
+}
+
+/* Form group layout */
+.form-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+/* Input field styles */
+.form-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 6px;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Submit button */
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Links */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Flash messages */
+.flash {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.flash.success {
+    background-color: #28a745;
+}
+
+.flash.danger {
+    background-color: #dc3545;
+}
+
+.flash.warning {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.flash.info {
+    background-color: #17a2b8;
+}
+
+/* remove list bullets for error lists */
+.errors {
+    color: #dc3545;
+    margin: 5px 0 0;
+    padding-left: 18px;
+    font-size: 14px;
+}
+.errors li {
+    list-style: disc;
+}
